@@ -41,8 +41,30 @@ public class BleuBlack {
 		ArrayList<PointColor> result = new ArrayList<PointColor>();
 
 		for (PointColor point : UDG)
-			if (point.distance(p) < edgeThreshold && !point.equals(p) && point.color == Color.WHITE){
+			if (point.distance(p) < edgeThreshold && !point.equals(p)){
 				point.color=Color.GREY;
+				result.add(point);
+
+			}
+
+		return result;
+	}
+
+	private void whiteToGrey(ArrayList<PointColor> whites) {
+		
+
+		for (PointColor point : whites)
+			point.color =Color.GREY;
+
+		
+	}
+
+	private ArrayList<PointColor> neighborWhite(PointColor p, ArrayList<PointColor> UDG) {
+		ArrayList<PointColor> result = new ArrayList<PointColor>();
+
+		for (PointColor point : UDG)
+			if (point.distance(p) < edgeThreshold  && !point.equals(p) &&  point.color == Color.WHITE){
+				//point.color=Color.GREY;
 				result.add(point);
 
 			}
@@ -70,6 +92,51 @@ public class BleuBlack {
 			ps.removeAll(this.neighborGrey(p, UDG));
 
 		}while(!ps.isEmpty());
+
+		return MIS;
+
+	}
+
+	private ArrayList<PointColor> getMIS2(ArrayList<PointColor> UDG){
+		ArrayList<PointColor> ps = new ArrayList<>(UDG);
+		ArrayList<PointColor> MIS = new ArrayList<>();
+		ArrayList<PointColor> grey = new ArrayList<>();
+		ArrayList<PointColor> white = new ArrayList<>();
+		ArrayList<PointColor> whiteM = new ArrayList<>();
+		int max=0;
+		PointColor p = getPPC(ps);
+		p.color=Color.BLACK;
+		MIS.add(p);
+		ps.remove(p);
+		grey.addAll(this.neighborGrey(p, UDG));
+		ps.removeAll(this.neighborGrey(p, UDG));
+
+		do{
+			System.out.println(p);
+			max=0;
+			p=null;
+			for(PointColor g : grey){
+				for(PointColor w : this.neighborWhite(g, UDG)){
+					white = this.neighborWhite(w, UDG);
+					if(max < white.size()){
+						max = white.size();
+						whiteM = white;
+						p = w;
+					}
+				}
+			}
+			if(p != null){
+				p.color=Color.BLACK;
+				this.whiteToGrey(whiteM);
+				System.out.println(whiteM.contains(p));
+				
+				MIS.add(p);
+				//ps.remove(p);
+				grey.addAll(whiteM);
+				//ps.removeAll(whiteM);
+			}
+
+		}while(p != null);
 
 		return MIS;
 
@@ -168,7 +235,7 @@ public class BleuBlack {
 		ArrayList<PointColor> bleuPoint = new ArrayList<>();
 		PointColor pBleu;
 		SMIS.addAll(MIS);
-	
+
 		for (int i = 5; i > 1; i--) {
 			while((pBleu =this.existeVoisin(greyPoint, i, UDG)) != null){
 				greyPoint.remove(pBleu);
@@ -188,7 +255,7 @@ public class BleuBlack {
 		MIS.addAll(bleuPoint);
 		if(isValide())
 			System.out.println("is valide");
-		
+
 		return SMIS;
 
 	}
@@ -210,12 +277,12 @@ public class BleuBlack {
 
 	public ArrayList<Point> calculSMIS(ArrayList<Point> points) {
 		ArrayList<PointColor> ps = PointColor.listePointColor(points);
-		
-		MIS = this.getMIS(ps);
-		System.out.println(MIS.size());
-		SMIS = new ArrayList<>();
-		
-		return PointColor.listePoint(this.getSMIS(ps));
+
+		//MIS = this.getMIS2(ps);
+		//System.out.println(MIS.size());
+		//SMIS = new ArrayList<>();
+
+		return PointColor.listePoint(this.getMIS2(ps));
 	}
 
 

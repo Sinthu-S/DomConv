@@ -18,8 +18,8 @@ public class PointColor extends Point{
 
 	public static ArrayList<PointColor> listePointColor(ArrayList<Point> points){
 		ArrayList<PointColor> list = new ArrayList<PointColor>();
-		for(Point p:points){
-			list.add(new PointColor(p, points.indexOf(p)));
+		for(int i=0; i<points.size(); i++){
+			list.add(new PointColor(points.get(i), i));
 		}
 		return list;
 	}
