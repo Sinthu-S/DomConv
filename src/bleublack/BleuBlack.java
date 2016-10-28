@@ -54,6 +54,7 @@ public class BleuBlack {
 		
 
 		for (PointColor point : whites)
+
 			point.color =Color.GREY;
 
 		
@@ -63,7 +64,7 @@ public class BleuBlack {
 		ArrayList<PointColor> result = new ArrayList<PointColor>();
 
 		for (PointColor point : UDG)
-			if (point.distance(p) < edgeThreshold  && !point.equals(p) &&  point.color == Color.WHITE){
+			if (point.distance(p) < edgeThreshold    &&  point.color == Color.WHITE){
 				//point.color=Color.GREY;
 				result.add(point);
 
@@ -127,9 +128,10 @@ public class BleuBlack {
 			}
 			if(p != null){
 				p.color=Color.BLACK;
+				whiteM.remove(p);
 				this.whiteToGrey(whiteM);
 				System.out.println(whiteM.contains(p));
-				
+				System.out.println(p);
 				MIS.add(p);
 				//ps.remove(p);
 				grey.addAll(whiteM);
@@ -137,6 +139,14 @@ public class BleuBlack {
 			}
 
 		}while(p != null);
+		
+		/*
+		for(PointColor g : UDG){
+			if(g.color == Color.WHITE){
+				g.color = Color.BLACK;
+				MIS.add(g);
+			}
+		}*/
 
 		return MIS;
 
@@ -278,11 +288,11 @@ public class BleuBlack {
 	public ArrayList<Point> calculSMIS(ArrayList<Point> points) {
 		ArrayList<PointColor> ps = PointColor.listePointColor(points);
 
-		//MIS = this.getMIS2(ps);
+		MIS = this.getMIS(ps);
 		//System.out.println(MIS.size());
-		//SMIS = new ArrayList<>();
+		SMIS = new ArrayList<>();
 
-		return PointColor.listePoint(this.getMIS2(ps));
+		return PointColor.listePoint(this.getSMIS(ps));
 	}
 
 
