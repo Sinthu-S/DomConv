@@ -401,7 +401,7 @@ public class AlgoDominant {
 
 
 	public ArrayList<Point> calculDominatingSet(ArrayList<Point> points) {
-		return PointPond.listePoint(optimsation(PointPond.listePondere(points)));
+		return PointPond.listePoint(glouton(PointPond.listePondere(points)));
 	}
 
 

@@ -20,28 +20,27 @@ import steiner.AlgoSteiner;
 import steiner.Tree2D;
 
 public class DefaultTeam {
-	public ArrayList<Point> calculConnectedDominatingSet(ArrayList<Point> points, int edgeThreshold) {
+	/*public ArrayList<Point> calculConnectedDominatingSet(ArrayList<Point> points, int edgeThreshold) {
 		System.out.println("seuil " + edgeThreshold);
 		ArrayList<Point> result = new ArrayList<Point>();
 		BleuBlack  algo = new BleuBlack(edgeThreshold);
 		System.out.println("RESULTAT = "+algo.calculSMIS(points).size());
 		return algo.calculSMIS(points);
 
+	}*/
+	public ArrayList<Point> calculConnectedDominatingSet(ArrayList<Point> points, int edgeThreshold) {
+		ArrayList<Point> result = new ArrayList<Point>();
+		AlgoDominant algo = new AlgoDominant(edgeThreshold);
+		ArrayList<Point> dom = algo.calculDominatingSet(points);
+		AlgoSteiner algoSteiner = new AlgoSteiner();
+		Tree2D resultSteiner = algoSteiner.calculSteiner(points, edgeThreshold, dom);
+		result.addAll(dom);
+		result.addAll(resultSteiner.getList());
+		Set<Point> s = new HashSet<Point>(result);
+		System.out.println("ttttttttttttttttttt = "+new ArrayList<Point>(s).size());
+		return new ArrayList<Point>(s);
+
 	}
-//	public ArrayList<Point> calculConnectedDominatingSet(ArrayList<Point> points, int edgeThreshold) {
-//		System.out.println("seuil " + edgeThreshold);
-//		ArrayList<Point> result = new ArrayList<Point>();
-//		AlgoDominant algo = new AlgoDominant(edgeThreshold);
-//		ArrayList<Point> dom = algo.calculDominatingSet(points);
-//		AlgoSteiner algoSteiner = new AlgoSteiner();
-//		Tree2D resultSteiner = algoSteiner.calculSteiner(points, edgeThreshold, dom);
-//		result.addAll(dom);
-//		result.addAll(resultSteiner.getList());
-//		Set<Point> s = new HashSet<Point>(result);
-//
-//		return new ArrayList<Point>(s);
-//
-//	}
 
 	
 

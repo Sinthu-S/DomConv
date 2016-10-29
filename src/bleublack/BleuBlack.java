@@ -295,6 +295,11 @@ public class BleuBlack {
 		return PointColor.listePoint(this.getSMIS(ps));
 	}
 
+	public ArrayList<Point> calculMIS(ArrayList<Point> points) {
+		ArrayList<PointColor> ps = PointColor.listePointColor(points);
+
+		return PointColor.listePoint(this.getMIS2(ps));
+	}
 
 
 }
