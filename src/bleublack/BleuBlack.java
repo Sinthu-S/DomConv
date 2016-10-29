@@ -113,7 +113,7 @@ public class BleuBlack {
 		ps.removeAll(this.neighborGrey(p, UDG));
 
 		do{
-			System.out.println(p);
+			//System.out.println(p);
 			max=0;
 			p=null;
 			for(PointColor g : grey){
@@ -130,8 +130,8 @@ public class BleuBlack {
 				p.color=Color.BLACK;
 				whiteM.remove(p);
 				this.whiteToGrey(whiteM);
-				System.out.println(whiteM.contains(p));
-				System.out.println(p);
+				//System.out.println(whiteM.contains(p));
+				//System.out.println(p);
 				MIS.add(p);
 				//ps.remove(p);
 				grey.addAll(whiteM);
@@ -194,8 +194,8 @@ public class BleuBlack {
 			}
 		}
 
-		if(!result.isEmpty())
-			System.out.println("taille " + result.size());
+		//if(!result.isEmpty())
+			//System.out.println("taille " + result.size());
 
 		return null;
 
@@ -254,11 +254,11 @@ public class BleuBlack {
 					System.out.println("vide");
 
 			}
-			System.out.println(bleuPoint.size());
+			//System.out.println(bleuPoint.size());
 
 		}
 
-		System.out.println(UDG.size());
+		//System.out.println(UDG.size());
 
 
 

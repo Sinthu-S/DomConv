@@ -8,12 +8,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import bleublack.BleuBlack;
+import rand.RandomGen;
 import steiner.AlgoSteiner;
 import steiner.Tree2D;
 
@@ -22,6 +24,7 @@ public class DefaultTeam {
 		System.out.println("seuil " + edgeThreshold);
 		ArrayList<Point> result = new ArrayList<Point>();
 		BleuBlack  algo = new BleuBlack(edgeThreshold);
+		System.out.println("RESULTAT = "+algo.calculSMIS(points).size());
 		return algo.calculSMIS(points);
 
 	}
@@ -40,6 +43,7 @@ public class DefaultTeam {
 //
 //	}
 
+	
 
 	//FILE PRINTER
 	private void saveToFile(String filename,ArrayList<Point> result){
